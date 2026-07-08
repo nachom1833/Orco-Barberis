@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, memo } from "react";
 import { motion, useInView } from "framer-motion";
 import { Plus, Laptop, Smartphone } from "lucide-react";
 import ProjectModal from "@/components/ui/ProjectModal";
@@ -12,6 +12,7 @@ interface Project {
   category: string;
   deviceType: "laptop" | "mobile";
   videoUrl: string;
+  posterUrl?: string; // Optional URL for fallback poster image
   challenge: string;
   solution: string;
   gridSpanClass: string; // Tailwind grid span configuration
@@ -26,7 +27,7 @@ interface ProjectCardProps {
   onInvisible: (id: number) => void;
 }
 
-function ProjectCard({
+const ProjectCard = memo(function ProjectCard({
   project,
   onOpenDetail,
   activeVideoId,
@@ -36,7 +37,7 @@ function ProjectCard({
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const supportsHover = useHoverSupport();
-  const isInView = useInView(cardRef, { once: false, amount: 0.5 });
+  const isInView = useInView(cardRef, { once: false, amount: 0.6 }); // Visibility threshold optimized to 0.6
   const [isHovered, setIsHovered] = useState(false);
 
   // Notify parent component about visibility status
@@ -56,17 +57,25 @@ function ProjectCard({
     ? activeVideoId === project.id
     : isHovered && isInView;
 
+  // Reactively control the video's play/pause state with cleanup
   useEffect(() => {
-    if (!videoRef.current) return;
+    const video = videoRef.current;
+    if (!video) return;
 
     if (isVideoPlaying) {
-      videoRef.current.play().catch((err) => {
-        // Safe catch for interrupted play requests
+      video.play().catch((err) => {
+        // Safe catch for interrupted play requests or user agent restrictions
         console.warn("Video play interrupted or failed:", err);
       });
     } else {
-      videoRef.current.pause();
+      video.pause();
     }
+
+    return () => {
+      if (video) {
+        video.pause();
+      }
+    };
   }, [isVideoPlaying]);
 
   const handleMouseEnter = () => {
@@ -137,6 +146,8 @@ function ProjectCard({
             <div className="w-full aspect-[16/8.5] bg-neutral-950 border-[6px] border-neutral-900 rounded-t-xl overflow-hidden relative shadow-lg">
               <video
                 ref={videoRef}
+                preload="none"
+                poster={project.posterUrl || "/logo.svg"}
                 loop
                 muted
                 playsInline
@@ -165,6 +176,8 @@ function ProjectCard({
             </div>
             <video
               ref={videoRef}
+              preload="none"
+              poster={project.posterUrl || "/logo.svg"}
               loop
               muted
               playsInline
@@ -216,7 +229,7 @@ function ProjectCard({
       </div>
     </motion.div>
   );
-}
+});
 
 export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -232,6 +245,11 @@ export default function Portfolio() {
 
   const handleCardInvisible = useCallback((id: number) => {
     setVisibleCards((prev) => prev.filter((item) => item !== id));
+  }, []);
+
+  const handleOpenDetail = useCallback((project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
   }, []);
 
   // Determine active video ID: the most recently visible card (top/last in the queue)
@@ -292,11 +310,6 @@ export default function Portfolio() {
       projectUrl: "https://b-emarketing.vercel.app/",
     },
   ];
-
-  const handleOpenDetail = (project: Project) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
-  };
 
   return (
     <section id="proyectos" className="pt-24 pb-36 md:pt-32 md:pb-48 bg-transparent relative overflow-visible">
