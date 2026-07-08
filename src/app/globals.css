@@ -1,26 +1,49 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-beige: #F5F2EB;
+  --color-brand-beige-dark: #EFECE5;
+  --color-brand-olive: #3B4331;
+  --color-brand-olive-light: #4E5841;
+  --color-brand-oak: #5C4033;
+  --color-brand-oak-light: #755242;
+  --font-sans: var(--font-jakarta), var(--font-geist-sans), sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F5F2EB;
+  --foreground: #3B4331;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom fine scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-olive);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-olive-light);
+}
+
+/* Selection style */
+::selection {
+  background-color: var(--color-brand-olive);
+  color: var(--color-brand-beige);
 }
