@@ -78,6 +78,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         loop
                         muted
                         playsInline
+                        aria-hidden="true"
                         className="w-full h-full object-cover"
                       >
                         <source src={project.videoUrl} type="video/mp4" />
@@ -98,6 +99,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       loop
                       muted
                       playsInline
+                      aria-hidden="true"
                       className="w-full h-full object-cover"
                     >
                       <source src={project.videoUrl} type="video/mp4" />

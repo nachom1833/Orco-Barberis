@@ -71,6 +71,7 @@ export default function AboutMe() {
                 width={600}
                 height={600}
                 priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
               />
             </motion.div>
@@ -127,9 +128,9 @@ export default function AboutMe() {
                     >
                       <Icon className="w-4.5 h-4.5" />
                     </motion.div>
-                    <h4 className="text-sm font-bold text-brand-olive">
+                    <h3 className="text-sm font-bold text-brand-olive">
                       {hl.title}
-                    </h4>
+                    </h3>
                     <p className="text-xs text-brand-olive/60 font-semibold leading-relaxed">
                       {hl.description}
                     </p>

@@ -107,7 +107,7 @@ export default function Header() {
 
         {/* Monograma Logo (Center on Desktop, Left on Mobile) */}
         <div className="flex lg:justify-center">
-          <a href="#inicio" onClick={(e) => handleScroll(e, "#inicio")} className="flex items-center gap-2 group">
+          <a href="#inicio" onClick={(e) => handleScroll(e, "#inicio")} aria-label="Ir al inicio" className="flex items-center gap-2 group">
             <Logo className="h-7 w-auto text-brand-olive/85 select-none transition-transform duration-300 group-hover:scale-105" />
           </a>
         </div>
@@ -120,6 +120,7 @@ export default function Header() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Contactar por WhatsApp"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-olive text-brand-beige text-sm font-semibold shadow-sm hover:bg-brand-olive-light transition-all duration-300"
           >
             <MessageSquare className="w-4 h-4" />

@@ -116,7 +116,7 @@ export default function ValueProp() {
                   <h3 className="text-xl font-bold text-brand-olive mb-3">
                     {pillar.title}
                   </h3>
-                  <p className="text-sm text-brand-olive/70 font-medium leading-relaxed">
+                  <p className="text-sm text-brand-olive/90 font-medium leading-relaxed">
                     {pillar.description}
                   </p>
                 </div>

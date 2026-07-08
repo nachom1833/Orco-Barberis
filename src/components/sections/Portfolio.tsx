@@ -94,6 +94,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
                 loop
                 muted
                 playsInline
+                aria-hidden="true"
                 className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity duration-300"
               >
                 <source src={project.videoUrl} type="video/mp4" />
@@ -118,6 +119,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
               loop
               muted
               playsInline
+              aria-hidden="true"
               className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity duration-300"
             >
               <source src={project.videoUrl} type="video/mp4" />
