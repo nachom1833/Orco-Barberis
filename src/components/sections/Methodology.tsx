@@ -1,13 +1,116 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { useRef, memo } from "react";
+import { motion, useScroll, useSpring, useInView } from "framer-motion";
 import { Search, Code2, Rocket } from "lucide-react";
 import { useHoverSupport } from "@/hooks/useHoverSupport";
 
+interface Step {
+  id: number;
+  icon: any;
+  title: string;
+  subtitle: string;
+  description: string;
+}
+
+interface StepItemProps {
+  step: Step;
+  index: number;
+}
+
+const StepItem = memo(function StepItem({ step, index }: StepItemProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const supportsHover = useHoverSupport();
+  // amount: 0.6 matches the optimized scroll threshold we used in Portfolio.tsx
+  const isInView = useInView(cardRef, { once: false, amount: 0.6 });
+  const IconComponent = step.icon;
+
+  const isCardActive = !supportsHover ? isInView : false;
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, delay: 0.1, ease: "easeOut" as const }
+    },
+    hover: {
+      y: -5,
+      borderColor: "rgba(92, 64, 51, 0.25)",
+      boxShadow: "0 10px 25px -5px rgba(59, 67, 49, 0.08)",
+      backgroundColor: "#F5F2EB",
+      transition: { duration: 0.35, ease: "easeOut" as const }
+    }
+  };
+
+  const indicatorVariants = {
+    initial: { scale: 1, borderColor: "var(--color-brand-oak)", boxShadow: "none" },
+    hover: {
+      scale: 1.25,
+      borderColor: "var(--color-brand-olive)",
+      boxShadow: "0 0 15px rgba(92, 64, 51, 0.35)",
+      transition: { duration: 0.3, ease: "easeOut" as const }
+    }
+  };
+
+  return (
+    <motion.div
+      ref={cardRef}
+      whileHover={supportsHover ? "hover" : undefined}
+      animate={isCardActive ? "hover" : undefined}
+      className={`relative flex flex-col md:flex-row items-start md:items-center ${
+        index % 2 === 0 ? "" : "md:flex-row-reverse"
+      }`}
+    >
+      {/* Timeline point indicator */}
+      <motion.div
+        variants={indicatorVariants}
+        initial="initial"
+        animate={isCardActive ? "hover" : "initial"}
+        className="absolute left-4 md:left-1/2 w-8 h-8 rounded-full bg-brand-beige border-2 text-brand-oak flex items-center justify-center -translate-x-1/2 z-10 shadow-sm"
+      >
+        <IconComponent className="w-4 h-4" />
+      </motion.div>
+
+      {/* Spacer or Card content placement */}
+      <div
+        className={`w-full md:w-1/2 ${
+          index % 2 === 0
+            ? "pl-12 pr-0 md:pl-0 md:pr-12"
+            : "pl-12 pr-0 md:pl-12 md:pr-0"
+        }`}
+      >
+        <motion.div
+          variants={cardVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-30px" }}
+          animate={isCardActive ? "hover" : undefined}
+          className="p-8 rounded-3xl bg-brand-beige-dark/30 border border-brand-olive/5 shadow-sm transition-all duration-300"
+        >
+          <span className="text-[10px] font-black text-brand-oak uppercase tracking-widest block mb-1">
+            Paso {step.id}
+          </span>
+          <h3 className="text-xl font-bold text-brand-olive mb-1">
+            {step.title}
+          </h3>
+          <p className="text-sm font-semibold text-brand-olive-light mb-4">
+            {step.subtitle}
+          </p>
+          <p className="text-sm text-brand-olive/75 font-medium leading-relaxed">
+            {step.description}
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Empty half for desktop alignment */}
+      <div className="hidden md:block w-1/2" />
+    </motion.div>
+  );
+});
+
 export default function Methodology() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const supportsHover = useHoverSupport();
 
   // Hook for scrolling line effect
   const { scrollYProgress } = useScroll({
@@ -21,7 +124,7 @@ export default function Methodology() {
     restDelta: 0.001,
   });
 
-  const steps = [
+  const steps: Step[] = [
     {
       id: 1,
       icon: Search,
@@ -70,75 +173,13 @@ export default function Methodology() {
 
           {/* Steps */}
           <div className="space-y-16">
-            {steps.map((step, index) => {
-              const IconComponent = step.icon;
-              return (
-                <motion.div
-                  key={step.id}
-                  whileHover={supportsHover ? "hover" : undefined}
-                  className={`relative flex flex-col md:flex-row items-start md:items-center ${
-                    index % 2 === 0 ? "" : "md:flex-row-reverse"
-                  }`}
-                >
-                  {/* Timeline point indicator */}
-                  <motion.div
-                    variants={{
-                      hover: {
-                        scale: 1.25,
-                        borderColor: "var(--color-brand-olive)",
-                        boxShadow: "0 0 15px rgba(92, 64, 51, 0.35)",
-                        transition: { duration: 0.3, ease: "easeOut" }
-                      }
-                    }}
-                    className="absolute left-4 md:left-1/2 w-8 h-8 rounded-full bg-brand-beige border-2 border-brand-oak text-brand-oak flex items-center justify-center -translate-x-1/2 z-10 shadow-sm"
-                  >
-                    <IconComponent className="w-4 h-4" />
-                  </motion.div>
-
-                  {/* Spacer or Card content placement */}
-                  <div
-                    className={`w-full md:w-1/2 ${
-                      index % 2 === 0
-                        ? "pl-12 pr-0 md:pl-0 md:pr-12"
-                        : "pl-12 pr-0 md:pl-12 md:pr-0"
-                    }`}
-                  >
-                    <motion.div
-                      variants={{
-                        hover: {
-                          y: -5,
-                          borderColor: "rgba(92, 64, 51, 0.25)",
-                          boxShadow: "0 10px 25px -5px rgba(59, 67, 49, 0.08)",
-                          backgroundColor: "#F5F2EB",
-                          transition: { duration: 0.35, ease: "easeOut" }
-                        }
-                      }}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-30px" }}
-                      transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                      className="p-8 rounded-3xl bg-brand-beige-dark/30 border border-brand-olive/5 shadow-sm transition-all duration-300"
-                    >
-                      <span className="text-[10px] font-black text-brand-oak uppercase tracking-widest block mb-1">
-                        Paso {step.id}
-                      </span>
-                      <h3 className="text-xl font-bold text-brand-olive mb-1">
-                        {step.title}
-                      </h3>
-                      <p className="text-sm font-semibold text-brand-olive-light mb-4">
-                        {step.subtitle}
-                      </p>
-                      <p className="text-sm text-brand-olive/75 font-medium leading-relaxed">
-                        {step.description}
-                      </p>
-                    </motion.div>
-                  </div>
-
-                  {/* Empty half for desktop alignment */}
-                  <div className="hidden md:block w-1/2" />
-                </motion.div>
-              );
-            })}
+            {steps.map((step, index) => (
+              <StepItem
+                key={step.id}
+                step={step}
+                index={index}
+              />
+            ))}
           </div>
         </div>
       </div>
