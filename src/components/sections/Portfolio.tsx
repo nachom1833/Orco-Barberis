@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
 import { Plus, LayoutTemplate, Laptop, Smartphone, Eye } from "lucide-react";
 import ProjectModal from "@/components/ui/ProjectModal";
 import { useHoverSupport } from "@/hooks/useHoverSupport";
@@ -25,7 +25,29 @@ interface ProjectCardProps {
 
 function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const supportsHover = useHoverSupport();
+  const isInView = useInView(cardRef, { once: false, amount: 0.5 });
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    if (!supportsHover) {
+      // Mobile Behavior: play automatically only when the card is in the viewport
+      if (isInView) {
+        videoRef.current.play().catch((err) => {
+          console.warn("Video play interrupted or failed:", err);
+        });
+      } else {
+        videoRef.current.pause();
+      }
+    } else {
+      // Desktop Behavior: play on hover, pause if out of viewport
+      if (!isInView) {
+        videoRef.current.pause();
+      }
+    }
+  }, [isInView, supportsHover]);
 
   const handleMouseEnter = () => {
     if (!supportsHover) return;
@@ -46,6 +68,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
 
   return (
     <motion.div
+      ref={cardRef}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
@@ -54,8 +77,12 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
       whileTap={{ scale: 0.98 }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`${project.gridSpanClass} group rounded-3xl bg-brand-beige border border-brand-olive/10 hover-hover:border-brand-olive/25 p-8 flex flex-col justify-between transition-all duration-300 shadow-sm hover-hover:shadow-md relative overflow-hidden ${
+      className={`${project.gridSpanClass} group rounded-3xl bg-brand-beige border p-8 flex flex-col justify-between transition-all duration-300 shadow-sm relative overflow-hidden ${
         project.id % 2 === 0 ? "lg:translate-y-12" : ""
+      } ${
+        (!supportsHover && isInView)
+          ? "border-brand-olive/25 shadow-md"
+          : "border-brand-olive/10 shadow-sm hover-hover:border-brand-olive/25 hover-hover:shadow-md"
       }`}
     >
       {/* Category & Badge */}
@@ -80,6 +107,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
       {/* Pure CSS Device Mockup Container with hover zoom */}
       <motion.div
         variants={{
+          initial: { scale: 1, y: 0, filter: "none" },
           hover: {
             scale: 1.05,
             y: -5,
@@ -87,6 +115,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
             transition: { duration: 0.4, ease: "easeOut" }
           }
         }}
+        animate={(!supportsHover && isInView) ? "hover" : "initial"}
         className="flex-1 flex items-center justify-center min-h-[220px] mb-8 overflow-hidden relative"
       >
         {project.deviceType === "laptop" ? (
@@ -95,12 +124,15 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
             <div className="w-full aspect-[16/8.5] bg-neutral-950 border-[6px] border-neutral-900 rounded-t-xl overflow-hidden relative shadow-lg">
               <video
                 ref={videoRef}
-                autoPlay
                 loop
                 muted
                 playsInline
                 aria-hidden="true"
-                className="w-full h-full object-cover opacity-100 md:opacity-85 group-hover-hover:opacity-100 transition-opacity duration-300"
+                className={`w-full h-full object-cover transition-opacity duration-300 ${
+                  (!supportsHover && isInView)
+                    ? "opacity-100"
+                    : "opacity-85 group-hover-hover:opacity-100"
+                }`}
               >
                 <source src={project.videoUrl} type="video/mp4" />
                 Tu navegador no soporta videos.
@@ -120,12 +152,15 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
             </div>
             <video
               ref={videoRef}
-              autoPlay
               loop
               muted
               playsInline
               aria-hidden="true"
-              className="w-full h-full object-cover opacity-100 md:opacity-85 group-hover-hover:opacity-100 transition-opacity duration-300"
+              className={`w-full h-full object-cover transition-opacity duration-300 ${
+                (!supportsHover && isInView)
+                  ? "opacity-100"
+                  : "opacity-85 group-hover-hover:opacity-100"
+              }`}
             >
               <source src={project.videoUrl} type="video/mp4" />
               Tu navegador no soporta videos.
@@ -141,20 +176,24 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
         </p>
         <motion.button
           variants={{
+            initial: { scale: 1, backgroundColor: "var(--color-brand-olive)" },
             hover: {
               scale: 1.04,
               backgroundColor: "var(--color-brand-oak)",
               transition: { duration: 0.3 }
             }
           }}
+          animate={(!supportsHover && isInView) ? "hover" : "initial"}
           whileTap={{ scale: 0.96 }}
           onClick={() => onOpenDetail(project)}
-          className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-brand-olive text-brand-beige text-xs font-bold shadow-sm transition-all duration-300"
+          className="flex items-center gap-1.5 px-4 py-2 rounded-full text-brand-beige text-xs font-bold shadow-sm transition-all duration-300"
         >
           <motion.span
             variants={{
+              initial: { rotate: 0 },
               hover: { rotate: 90, transition: { duration: 0.3 } }
             }}
+            animate={(!supportsHover && isInView) ? "hover" : "initial"}
             className="inline-block"
           >
             <Plus className="w-3.5 h-3.5" />
