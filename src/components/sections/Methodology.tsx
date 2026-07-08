@@ -21,11 +21,16 @@ interface StepItemProps {
 const StepItem = memo(function StepItem({ step, index }: StepItemProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const supportsHover = useHoverSupport();
-  // amount: 0.6 matches the optimized scroll threshold we used in Portfolio.tsx
-  const isInView = useInView(cardRef, { once: false, amount: 0.6 });
+  
+  // Triggers exactly when the card crosses the center of the viewport (for active/hover effect)
+  const isCentered = useInView(cardRef, { once: false, margin: "-50% 0px -50% 0px" });
+  
+  // Triggers when the card enters the viewport from the bottom (for entry fade-in)
+  const hasEntered = useInView(cardRef, { once: true, margin: "-30px" });
+  
   const IconComponent = step.icon;
 
-  const isCardActive = !supportsHover ? isInView : false;
+  const isCardActive = !supportsHover ? isCentered : false;
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -57,7 +62,6 @@ const StepItem = memo(function StepItem({ step, index }: StepItemProps) {
     <motion.div
       ref={cardRef}
       whileHover={supportsHover ? "hover" : undefined}
-      animate={isCardActive ? "hover" : undefined}
       className={`relative flex flex-col md:flex-row items-start md:items-center ${
         index % 2 === 0 ? "" : "md:flex-row-reverse"
       }`}
@@ -83,9 +87,7 @@ const StepItem = memo(function StepItem({ step, index }: StepItemProps) {
         <motion.div
           variants={cardVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-30px" }}
-          animate={isCardActive ? "hover" : undefined}
+          animate={hasEntered ? (isCardActive ? "hover" : "visible") : "hidden"}
           className="p-8 rounded-3xl bg-brand-beige-dark/30 border border-brand-olive/5 shadow-sm transition-all duration-300"
         >
           <span className="text-[10px] font-black text-brand-oak uppercase tracking-widest block mb-1">
