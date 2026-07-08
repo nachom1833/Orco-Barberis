@@ -47,7 +47,7 @@ export default function Footer() {
                 Ignacio Orco Barberis
               </span>
             </a>
-            <p className="text-xs leading-relaxed text-brand-beige/50 font-medium">
+            <p className="text-xs leading-relaxed text-brand-beige/85 font-medium">
               Desarrollo web optimizado, rápido y enfocado en escalar las ventas de tu negocio.
             </p>
           </div>
@@ -59,7 +59,7 @@ export default function Footer() {
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleScroll(e, item.href)}
-                className="text-xs font-semibold text-brand-beige/60 hover:text-brand-beige transition-colors duration-250 relative py-1"
+                className="text-xs font-semibold text-brand-beige/85 hover:text-brand-beige transition-colors duration-250 relative py-1"
               >
                 {item.name}
               </a>
@@ -73,7 +73,7 @@ export default function Footer() {
         {/* Bottom Row: Copyright, Socials, Back to Top */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           {/* Copyright */}
-          <p className="text-[11px] font-semibold text-brand-beige/40 text-center sm:text-left order-3 sm:order-1">
+          <p className="text-[11px] font-semibold text-brand-beige/75 text-center sm:text-left order-3 sm:order-1">
             &copy; {currentYear} Ignacio Orco Barberis. Diseñado para escalar.
           </p>
 
@@ -84,7 +84,7 @@ export default function Footer() {
                 href={SOCIAL_LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-beige/50 hover:text-brand-beige transition-colors duration-250 p-2 rounded-full hover:bg-brand-beige/5 border border-brand-beige/5"
+                className="text-brand-beige/85 hover:text-brand-beige transition-colors duration-250 p-2 rounded-full hover:bg-brand-beige/5 border border-brand-beige/5"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
@@ -93,7 +93,7 @@ export default function Footer() {
                 href={SOCIAL_LINKS.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-beige/50 hover:text-brand-beige transition-colors duration-250 p-2 rounded-full hover:bg-brand-beige/5 border border-brand-beige/5"
+                className="text-brand-beige/85 hover:text-brand-beige transition-colors duration-250 p-2 rounded-full hover:bg-brand-beige/5 border border-brand-beige/5"
                 aria-label="GitHub"
               >
                 <Github className="w-4 h-4" />
@@ -103,7 +103,7 @@ export default function Footer() {
             <a
               href="#inicio"
               onClick={(e) => handleScroll(e, "#inicio")}
-              className="flex items-center gap-1.5 text-xs font-semibold text-brand-beige/50 hover:text-brand-beige transition-colors duration-250 group"
+              className="flex items-center gap-1.5 text-xs font-semibold text-brand-beige/85 hover:text-brand-beige transition-colors duration-250 group"
             >
               <span>Volver arriba</span>
               <ArrowUp className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
