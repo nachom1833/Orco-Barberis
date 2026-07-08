@@ -87,7 +87,7 @@ export default function Header() {
                 href={item.href}
                 onClick={(e) => handleScroll(e, item.href)}
                 className={`text-sm font-semibold transition-colors duration-300 relative py-1.5 group select-none ${
-                  isActive ? "text-brand-olive font-bold" : "text-brand-olive/65 hover:text-brand-olive"
+                  isActive ? "text-brand-olive font-bold" : "text-brand-olive/85 hover:text-brand-olive"
                 }`}
               >
                 {item.name}
