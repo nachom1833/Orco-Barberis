@@ -92,7 +92,7 @@ export default function ValueProp() {
           viewport={{ once: true, margin: "-30px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
-          {pillars.map((pillar, idx) => {
+          {pillars.map((pillar) => {
             const IconComponent = pillar.icon;
             return (
               <motion.div

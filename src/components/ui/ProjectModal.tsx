@@ -72,7 +72,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 {project.deviceType === "laptop" ? (
                   // Laptop CSS Mockup
                   <div className="w-full max-w-[280px] flex flex-col items-center">
-                    <div className="w-full aspect-[16/8.5] bg-neutral-950 border-[5px] border-neutral-900 rounded-t-xl overflow-hidden relative shadow-lg">
+                    <div className="w-full aspect-[16/8.5] bg-neutral-950 border-[5px] border-neutral-900 rounded-t-xl overflow-hidden relative shadow-lg transform-gpu backface-hidden [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
                       <video
                         autoPlay
                         loop
@@ -90,7 +90,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   </div>
                 ) : (
                   // Mobile CSS Mockup
-                  <div className="w-[130px] aspect-[9/19.6] bg-neutral-950 border-[5px] border-neutral-900 rounded-[20px] overflow-hidden relative shadow-xl flex flex-col">
+                  <div className="w-[130px] aspect-[9/19.6] bg-neutral-950 border-[5px] border-neutral-900 rounded-[20px] overflow-hidden relative shadow-xl flex flex-col transform-gpu backface-hidden [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
                     <div className="absolute top-0.5 left-1/2 -translate-x-1/2 w-8 h-1.5 bg-neutral-900 rounded-full z-10 flex items-center justify-center">
                       <div className="w-1 h-1 bg-neutral-950 rounded-full" />
                     </div>

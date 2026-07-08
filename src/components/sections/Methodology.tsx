@@ -7,7 +7,7 @@ import { useHoverSupport } from "@/hooks/useHoverSupport";
 
 interface Step {
   id: number;
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   title: string;
   subtitle: string;
   description: string;
@@ -49,10 +49,16 @@ const StepItem = memo(function StepItem({ step, index }: StepItemProps) {
   };
 
   const indicatorVariants = {
-    initial: { scale: 1, borderColor: "var(--color-brand-oak)", boxShadow: "none" },
+    default: {
+      scale: 1,
+      borderColor: "var(--color-brand-oak)",
+      color: "var(--color-brand-oak)",
+      boxShadow: "none"
+    },
     hover: {
       scale: 1.25,
       borderColor: "var(--color-brand-olive)",
+      color: "var(--color-brand-olive)",
       boxShadow: "0 0 15px rgba(92, 64, 51, 0.35)",
       transition: { duration: 0.3, ease: "easeOut" as const }
     }
@@ -69,9 +75,9 @@ const StepItem = memo(function StepItem({ step, index }: StepItemProps) {
       {/* Timeline point indicator */}
       <motion.div
         variants={indicatorVariants}
-        initial="initial"
-        animate={isCardActive ? "hover" : "initial"}
-        className="absolute left-4 md:left-1/2 w-8 h-8 rounded-full bg-brand-beige border-2 text-brand-oak flex items-center justify-center -translate-x-1/2 z-10 shadow-sm"
+        initial="default"
+        animate={isCardActive ? "hover" : "default"}
+        className="absolute left-4 md:left-1/2 w-8 h-8 rounded-full bg-brand-beige border-2 flex items-center justify-center -translate-x-1/2 z-10 shadow-sm"
       >
         <IconComponent className="w-4 h-4" />
       </motion.div>

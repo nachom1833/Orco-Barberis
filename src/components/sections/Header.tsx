@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Logo from "@/components/ui/Logo";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { MessageSquare } from "lucide-react";
