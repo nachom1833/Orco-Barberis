@@ -178,7 +178,7 @@ export default function Portfolio() {
       title: "Rincón Casero",
       category: "Landing Page de Conversión",
       deviceType: "mobile",
-      videoUrl: "/RIncon Casero.mp4",
+      videoUrl: "/Rincon Casero.mp4",
       challenge: "Un restaurante de viandas y comida casera necesitaba captar suscriptores mensuales de manera directa, pero su tasa de rebote era alta debido a una web lenta y poco intuitiva.",
       solution: "Se diseñó una landing page de conversión enfocada en la propuesta de valor diaria del negocio, con carga menor a 1 segundo, fotos optimizadas y un checkout optimizado en 3 pasos que multiplicó el volumen de suscripciones mensuales.",
       gridSpanClass: "lg:col-span-5",
