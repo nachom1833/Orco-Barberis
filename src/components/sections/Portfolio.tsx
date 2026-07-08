@@ -138,16 +138,16 @@ const ProjectCard = memo(function ProjectCard({
           }
         }}
         animate={isCardActive ? "hover" : "initial"}
-        className="flex-1 flex items-center justify-center min-h-[220px] mb-8 overflow-hidden relative"
+        className="flex-1 flex items-center justify-center min-h-[220px] mb-8 relative"
       >
         {project.deviceType === "laptop" ? (
           // Laptop CSS Mockup
           <div className="w-full max-w-[340px] flex flex-col items-center">
-            <div className="w-full aspect-[16/8.5] bg-neutral-950 border-[6px] border-neutral-900 rounded-t-xl overflow-hidden relative shadow-lg">
+            <div className="w-full aspect-[16/8.5] bg-neutral-950 border-[6px] border-neutral-900 rounded-t-xl overflow-hidden relative shadow-lg transform-gpu backface-hidden [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
               <video
                 ref={videoRef}
                 preload="none"
-                poster={project.posterUrl || "/logo.svg"}
+                poster={!supportsHover ? (project.posterUrl || "/logo.svg") : undefined}
                 loop
                 muted
                 playsInline
@@ -169,7 +169,7 @@ const ProjectCard = memo(function ProjectCard({
           </div>
         ) : (
           // Mobile CSS Mockup
-          <div className="w-[150px] aspect-[9/19.6] bg-neutral-950 border-[6px] border-neutral-900 rounded-[24px] overflow-hidden relative shadow-xl flex flex-col">
+          <div className="w-[150px] aspect-[9/19.6] bg-neutral-950 border-[6px] border-neutral-900 rounded-[24px] overflow-hidden relative shadow-xl flex flex-col transform-gpu backface-hidden [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
             {/* Top camera Notch / speaker */}
             <div className="absolute top-1 left-1/2 -translate-x-1/2 w-10 h-2 bg-neutral-900 rounded-full z-10 flex items-center justify-center">
               <div className="w-1.5 h-1.5 bg-neutral-950 rounded-full" />
@@ -177,7 +177,7 @@ const ProjectCard = memo(function ProjectCard({
             <video
               ref={videoRef}
               preload="none"
-              poster={project.posterUrl || "/logo.svg"}
+              poster={!supportsHover ? (project.posterUrl || "/logo.svg") : undefined}
               loop
               muted
               playsInline
