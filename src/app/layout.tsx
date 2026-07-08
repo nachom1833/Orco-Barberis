@@ -36,6 +36,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  // Código de verificación de Google Search Console
+  verification: {
+    google: "FXpwD2UR0IdgTYTLCm_9gO1YN1CwT7F13YZQUinlRJg",
+  },
 };
 
 export default function RootLayout({
