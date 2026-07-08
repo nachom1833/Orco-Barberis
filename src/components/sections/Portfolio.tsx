@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Plus, LayoutTemplate, Laptop, Smartphone, Eye } from "lucide-react";
 import ProjectModal from "@/components/ui/ProjectModal";
+import { useHoverSupport } from "@/hooks/useHoverSupport";
 
 interface Project {
   id: number;
@@ -24,8 +25,10 @@ interface ProjectCardProps {
 
 function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const supportsHover = useHoverSupport();
 
   const handleMouseEnter = () => {
+    if (!supportsHover) return;
     if (videoRef.current) {
       videoRef.current.play().catch((err) => {
         // Safe catch for interrupted play requests on fast hover
@@ -35,6 +38,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
   };
 
   const handleMouseLeave = () => {
+    if (!supportsHover) return;
     if (videoRef.current) {
       videoRef.current.pause();
     }
@@ -46,10 +50,11 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      whileHover="hover"
+      whileHover={supportsHover ? "hover" : undefined}
+      whileTap={{ scale: 0.98 }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`${project.gridSpanClass} group rounded-3xl bg-brand-beige border border-brand-olive/10 hover:border-brand-olive/25 p-8 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden ${
+      className={`${project.gridSpanClass} group rounded-3xl bg-brand-beige border border-brand-olive/10 hover-hover:border-brand-olive/25 p-8 flex flex-col justify-between transition-all duration-300 shadow-sm hover-hover:shadow-md relative overflow-hidden ${
         project.id % 2 === 0 ? "lg:translate-y-12" : ""
       }`}
     >
@@ -95,7 +100,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
                 muted
                 playsInline
                 aria-hidden="true"
-                className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity duration-300"
+                className="w-full h-full object-cover opacity-100 md:opacity-85 group-hover-hover:opacity-100 transition-opacity duration-300"
               >
                 <source src={project.videoUrl} type="video/mp4" />
                 Tu navegador no soporta videos.
@@ -120,7 +125,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
               muted
               playsInline
               aria-hidden="true"
-              className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity duration-300"
+              className="w-full h-full object-cover opacity-100 md:opacity-85 group-hover-hover:opacity-100 transition-opacity duration-300"
             >
               <source src={project.videoUrl} type="video/mp4" />
               Tu navegador no soporta videos.

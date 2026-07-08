@@ -3,9 +3,11 @@
 import { useRef } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Search, Code2, Rocket } from "lucide-react";
+import { useHoverSupport } from "@/hooks/useHoverSupport";
 
 export default function Methodology() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const supportsHover = useHoverSupport();
 
   // Hook for scrolling line effect
   const { scrollYProgress } = useScroll({
@@ -73,7 +75,7 @@ export default function Methodology() {
               return (
                 <motion.div
                   key={step.id}
-                  whileHover="hover"
+                  whileHover={supportsHover ? "hover" : undefined}
                   className={`relative flex flex-col md:flex-row items-start md:items-center ${
                     index % 2 === 0 ? "" : "md:flex-row-reverse"
                   }`}

@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Eye, TrendingUp, Zap, HeartHandshake } from "lucide-react";
+import { useHoverSupport } from "@/hooks/useHoverSupport";
 
 export default function ValueProp() {
+  const supportsHover = useHoverSupport();
   const pillars = [
     {
       icon: Eye,
@@ -96,7 +98,7 @@ export default function ValueProp() {
               <motion.div
                 key={pillar.title}
                 variants={cardVariants}
-                whileHover="hover"
+                whileHover={supportsHover ? "hover" : undefined}
                 className="group p-8 rounded-2xl bg-brand-beige-dark/40 border border-brand-olive/5 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
@@ -120,7 +122,7 @@ export default function ValueProp() {
                     {pillar.description}
                   </p>
                 </div>
-                <div className="h-1 w-12 bg-brand-olive/20 rounded-full mt-8 group-hover:w-full group-hover:bg-brand-oak transition-all duration-300" />
+                <div className="h-1 w-12 bg-brand-olive/20 rounded-full mt-8 group-hover-hover:w-full group-hover-hover:bg-brand-oak transition-all duration-300" />
               </motion.div>
             );
           })}

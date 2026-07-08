@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { MessageSquare, ArrowRight } from "lucide-react";
+import { useHoverSupport } from "@/hooks/useHoverSupport";
 
 export default function CTA() {
+  const supportsHover = useHoverSupport();
+
   return (
     <section className="relative py-28 md:py-36 bg-brand-olive text-brand-beige rounded-t-[3rem] md:rounded-t-[5rem] -mt-12 z-20 overflow-hidden">
 
@@ -32,17 +35,17 @@ export default function CTA() {
           </p>
 
           <motion.a
-            whileHover={{ scale: 1.03, boxShadow: "0 10px 25px rgba(245, 242, 235, 0.15)" }}
+            whileHover={supportsHover ? { scale: 1.03, boxShadow: "0 10px 25px rgba(245, 242, 235, 0.15)" } : undefined}
             whileTap={{ scale: 0.98 }}
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative overflow-hidden inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-brand-beige text-brand-olive font-black text-base shadow-lg hover:bg-brand-beige-dark hover:shadow-xl transition-all duration-300 group"
+            className="relative overflow-hidden inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-brand-beige text-brand-olive font-black text-base shadow-lg hover-hover:bg-brand-beige-dark hover-hover:shadow-xl transition-all duration-300 group"
           >
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-brand-olive/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-brand-olive/10 to-transparent -translate-x-full group-hover-hover:translate-x-full transition-transform duration-1000 ease-out" />
             <MessageSquare className="w-5 h-5 text-brand-oak" />
             Contactar por WhatsApp
-            <ArrowRight className="w-4 h-4 text-brand-olive transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="w-4 h-4 text-brand-olive transition-transform duration-300 group-hover-hover:translate-x-1" />
           </motion.a>
         </motion.div>
       </div>

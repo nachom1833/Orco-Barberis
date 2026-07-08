@@ -58,7 +58,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 p-2 rounded-full bg-brand-beige-dark text-brand-olive/70 hover:text-brand-olive hover:bg-brand-olive/10 transition-colors duration-200 z-20"
+              className="absolute top-6 right-6 p-2 rounded-full bg-brand-beige-dark text-brand-olive/70 hover-hover:text-brand-olive hover-hover:bg-brand-olive/10 transition-colors duration-200 z-20"
               aria-label="Cerrar modal"
             >
               <X className="w-5 h-5" />
@@ -153,20 +153,20 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         href={project.projectUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-brand-olive/20 hover:border-brand-olive text-brand-olive font-black text-xs transition-all duration-300 w-full sm:w-auto group hover:bg-brand-olive/5"
+                        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-brand-olive/20 hover-hover:border-brand-olive text-brand-olive font-black text-xs transition-all duration-300 w-full sm:w-auto group hover-hover:bg-brand-olive/5"
                       >
                         Visitar sitio web
-                        <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                        <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover-hover:-translate-y-0.5 group-hover-hover:translate-x-0.5" />
                       </a>
                     )}
                     <a
                       href={WHATSAPP_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-brand-olive hover:bg-brand-oak text-brand-beige font-black text-xs shadow transition-all duration-300 w-full sm:w-auto group"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-brand-olive hover-hover:bg-brand-oak text-brand-beige font-black text-xs shadow transition-all duration-300 w-full sm:w-auto group"
                     >
                       Consultar
-                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover-hover:-translate-y-0.5 group-hover-hover:translate-x-0.5" />
                     </a>
                   </div>
                 </div>

@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+@custom-variant hover-hover {
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
+@custom-variant group-hover-hover {
+  @media (hover: hover) {
+    &:is(.group:hover *) {
+      @slot;
+    }
+  }
+}
+
+
 @theme {
   --color-brand-beige: #F5F2EB;
   --color-brand-beige-dark: #EFECE5;

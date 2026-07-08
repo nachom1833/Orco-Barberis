@@ -3,8 +3,11 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Award, ShieldCheck, Heart } from "lucide-react";
+import { useHoverSupport } from "@/hooks/useHoverSupport";
 
 export default function AboutMe() {
+  const supportsHover = useHoverSupport();
+
   const highlights = [
     {
       icon: Heart,
@@ -37,7 +40,7 @@ export default function AboutMe() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-30px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            whileHover="hover"
+            whileHover={supportsHover ? "hover" : undefined}
             className="lg:col-span-5 relative group"
           >
             {/* Outer offset frame with premium close-gap animation */}
@@ -72,7 +75,7 @@ export default function AboutMe() {
                 height={600}
                 priority
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
+                className="w-full h-full object-cover grayscale-[20%] group-hover-hover:grayscale-0 transition-all duration-500"
               />
             </motion.div>
           </motion.div>
@@ -111,8 +114,8 @@ export default function AboutMe() {
                 return (
                   <motion.div
                     key={hl.title}
-                    whileHover="hover"
-                    className="flex flex-col gap-2 p-4 rounded-2xl border border-transparent hover:border-brand-olive/10 hover:bg-brand-beige-dark/20 transition-all duration-300 cursor-default"
+                    whileHover={supportsHover ? "hover" : undefined}
+                    className="flex flex-col gap-2 p-4 rounded-2xl border border-transparent hover-hover:border-brand-olive/10 hover-hover:bg-brand-beige-dark/20 transition-all duration-300 cursor-default"
                   >
                     <motion.div
                       variants={{
@@ -138,7 +141,6 @@ export default function AboutMe() {
                 );
               })}
             </div>
-
           </motion.div>
         </div>
       </div>

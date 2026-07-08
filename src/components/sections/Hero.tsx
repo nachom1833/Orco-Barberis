@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useHoverSupport } from "@/hooks/useHoverSupport";
 
 export default function Hero() {
+  const supportsHover = useHoverSupport();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -81,26 +84,26 @@ export default function Hero() {
           {/* CTA */}
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-4">
             <motion.a
-              whileHover={{ scale: 1.03 }}
+              whileHover={supportsHover ? { scale: 1.03 } : undefined}
               whileTap={{ scale: 0.98 }}
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative overflow-hidden inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-brand-oak text-brand-beige font-semibold shadow-lg shadow-brand-oak/20 hover:bg-brand-oak-light hover:shadow-brand-oak/30 transition-all duration-300 group text-base"
+              className="relative overflow-hidden inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-brand-oak text-brand-beige font-semibold shadow-lg shadow-brand-oak/20 hover-hover:bg-brand-oak-light hover-hover:shadow-brand-oak/30 transition-all duration-300 group text-base"
             >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover-hover:translate-x-full transition-transform duration-1000 ease-out" />
               Hablemos de tu negocio
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover-hover:translate-x-1" />
             </motion.a>
 
             <motion.a
-              whileHover={{ scale: 1.03 }}
+              whileHover={supportsHover ? { scale: 1.03 } : undefined}
               whileTap={{ scale: 0.98 }}
               href="#proyectos"
-              className="px-6 py-4 text-sm font-bold text-brand-olive/80 hover:text-brand-olive transition-colors duration-300 relative group"
+              className="px-6 py-4 text-sm font-bold text-brand-olive/80 hover-hover:text-brand-olive transition-colors duration-300 relative group"
             >
               Ver casos de éxito
-              <span className="absolute bottom-2 left-1/2 w-0 h-0.5 bg-brand-olive transition-all duration-300 ease-out origin-center -translate-x-1/2 group-hover:w-[60%]" />
+              <span className="absolute bottom-2 left-1/2 w-0 h-0.5 bg-brand-olive transition-all duration-300 ease-out origin-center -translate-x-1/2 group-hover-hover:w-[60%]" />
             </motion.a>
           </motion.div>
         </motion.div>

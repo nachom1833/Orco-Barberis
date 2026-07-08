@@ -5,9 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Logo from "@/components/ui/Logo";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { MessageSquare } from "lucide-react";
+import { useHoverSupport } from "@/hooks/useHoverSupport";
 
 export default function Header() {
   const [activeSection, setActiveSection] = useState("inicio");
+  const supportsHover = useHoverSupport();
 
   const navItems = [
     { name: "Inicio", href: "#inicio" },
@@ -87,7 +89,7 @@ export default function Header() {
                 href={item.href}
                 onClick={(e) => handleScroll(e, item.href)}
                 className={`text-sm font-semibold transition-colors duration-300 relative py-1.5 group select-none ${
-                  isActive ? "text-brand-olive font-bold" : "text-brand-olive/85 hover:text-brand-olive"
+                  isActive ? "text-brand-olive font-bold" : "text-brand-olive/85 hover-hover:text-brand-olive"
                 }`}
               >
                 {item.name}
@@ -98,7 +100,7 @@ export default function Header() {
                     transition={{ type: "spring", stiffness: 300, damping: 28 }}
                   />
                 ) : (
-                  <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-brand-oak/40 transition-all duration-300 ease-out origin-center -translate-x-1/2 group-hover:w-full rounded-full" />
+                  <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-brand-oak/40 transition-all duration-300 ease-out origin-center -translate-x-1/2 group-hover-hover:w-full rounded-full" />
                 )}
               </a>
             );
@@ -108,20 +110,20 @@ export default function Header() {
         {/* Monograma Logo (Center on Desktop, Left on Mobile) */}
         <div className="flex lg:justify-center">
           <a href="#inicio" onClick={(e) => handleScroll(e, "#inicio")} aria-label="Ir al inicio" className="flex items-center gap-2 group">
-            <Logo className="h-7 w-auto text-brand-olive/85 select-none transition-transform duration-300 group-hover:scale-105" />
+            <Logo className="h-7 w-auto text-brand-olive/85 select-none transition-transform duration-300 group-hover-hover:scale-105" />
           </a>
         </div>
 
         {/* CTA Button (Right) */}
         <div className="flex items-center justify-end">
           <motion.a
-            whileHover={{ scale: 1.03, boxShadow: "0 4px 15px rgba(59, 67, 49, 0.15)" }}
+            whileHover={supportsHover ? { scale: 1.03, boxShadow: "0 4px 15px rgba(59, 67, 49, 0.15)" } : undefined}
             whileTap={{ scale: 0.98 }}
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Contactar por WhatsApp"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-olive text-brand-beige text-sm font-semibold shadow-sm hover:bg-brand-olive-light transition-all duration-300"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-olive text-brand-beige text-sm font-semibold shadow-sm hover-hover:bg-brand-olive-light transition-all duration-300"
           >
             <MessageSquare className="w-4 h-4" />
             <span className="hidden sm:inline">Hablemos</span>

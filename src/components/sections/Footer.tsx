@@ -42,8 +42,8 @@ export default function Footer() {
               onClick={(e) => handleScroll(e, "#inicio")}
               className="flex items-center gap-3 group w-fit"
             >
-              <Logo className="h-6 w-auto text-brand-beige/90 select-none transition-transform duration-300 group-hover:scale-105" />
-              <span className="text-sm font-black tracking-tight group-hover:text-brand-beige-dark transition-colors duration-300">
+              <Logo className="h-6 w-auto text-brand-beige/90 select-none transition-transform duration-300 group-hover-hover:scale-105" />
+              <span className="text-sm font-black tracking-tight group-hover-hover:text-brand-beige-dark transition-colors duration-300">
                 Ignacio Orco Barberis
               </span>
             </a>
@@ -59,7 +59,7 @@ export default function Footer() {
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleScroll(e, item.href)}
-                className="text-xs font-semibold text-brand-beige/85 hover:text-brand-beige transition-colors duration-250 relative py-1"
+                className="text-xs font-semibold text-brand-beige/85 hover-hover:text-brand-beige transition-colors duration-250 relative py-1"
               >
                 {item.name}
               </a>
@@ -84,7 +84,7 @@ export default function Footer() {
                 href={SOCIAL_LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-beige/85 hover:text-brand-beige transition-colors duration-250 p-2 rounded-full hover:bg-brand-beige/5 border border-brand-beige/5"
+                className="text-brand-beige/85 hover-hover:text-brand-beige transition-colors duration-250 p-2 rounded-full hover-hover:bg-brand-beige/5 border border-brand-beige/5"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
@@ -93,7 +93,7 @@ export default function Footer() {
                 href={SOCIAL_LINKS.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-beige/85 hover:text-brand-beige transition-colors duration-250 p-2 rounded-full hover:bg-brand-beige/5 border border-brand-beige/5"
+                className="text-brand-beige/85 hover-hover:text-brand-beige transition-colors duration-250 p-2 rounded-full hover-hover:bg-brand-beige/5 border border-brand-beige/5"
                 aria-label="GitHub"
               >
                 <Github className="w-4 h-4" />
@@ -103,10 +103,10 @@ export default function Footer() {
             <a
               href="#inicio"
               onClick={(e) => handleScroll(e, "#inicio")}
-              className="flex items-center gap-1.5 text-xs font-semibold text-brand-beige/85 hover:text-brand-beige transition-colors duration-250 group"
+              className="flex items-center gap-1.5 text-xs font-semibold text-brand-beige/85 hover-hover:text-brand-beige transition-colors duration-250 group"
             >
               <span>Volver arriba</span>
-              <ArrowUp className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
+              <ArrowUp className="w-3.5 h-3.5 transition-transform duration-300 group-hover-hover:-translate-y-0.5" />
             </a>
           </div>
         </div>
