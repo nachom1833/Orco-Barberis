@@ -171,7 +171,7 @@ export default function Portfolio() {
       challenge: "El negocio local de venta de cueros y marroquinería tenía ventas estancadas al depender únicamente del local físico y de Instagram, lo que generaba un proceso manual y lento para procesar pedidos.",
       solution: "Se desarrolló un catálogo digital interactivo, ultra rápido y móvil-optimizado, permitiendo a los clientes explorar y seleccionar variantes de productos de cuero y finalizar la compra directamente a través de WhatsApp con un pedido estructurado y listo para procesar.",
       gridSpanClass: "lg:col-span-7",
-      projectUrl: "https://cuerosportenos.com.ar",
+      projectUrl: "https://cueros-portenos.vercel.app/",
     },
     {
       id: 2,
@@ -182,7 +182,7 @@ export default function Portfolio() {
       challenge: "Un restaurante de viandas y comida casera necesitaba captar suscriptores mensuales de manera directa, pero su tasa de rebote era alta debido a una web lenta y poco intuitiva.",
       solution: "Se diseñó una landing page de conversión enfocada en la propuesta de valor diaria del negocio, con carga menor a 1 segundo, fotos optimizadas y un checkout optimizado en 3 pasos que multiplicó el volumen de suscripciones mensuales.",
       gridSpanClass: "lg:col-span-5",
-      projectUrl: "https://rinconcasero.app",
+      projectUrl: "http://www.rinconcasero.com.ar/",
     },
     {
       id: 3,
@@ -193,7 +193,6 @@ export default function Portfolio() {
       challenge: "Tomás Alonso, un emprendedor con múltiples locales de distribución, perdía horas conciliando stocks y planificando rutas de entrega mediante hojas de cálculo fragmentadas.",
       solution: "Creación de una aplicación web de gestión interna (PWA) de diseño móvil-first que sincroniza en tiempo real el inventario de los locales y automatiza la generación de rutas optimizadas de reparto para los choferes.",
       gridSpanClass: "lg:col-span-4",
-      projectUrl: "https://alonso-logistica.dev",
     },
     {
       id: 4,
@@ -204,7 +203,6 @@ export default function Portfolio() {
       challenge: "El consultor financiero Gonzalo Simón necesitaba recolectar datos de clientes y automatizar la generación de informes personalizados sin recurrir a software costoso y complejo de configurar.",
       solution: "Se implementó un panel web intuitivo que procesa la información ingresada por los clientes, calcula métricas clave de inversión y genera PDFs descargables profesionales de manera instantánea, reduciendo el tiempo de consultoría a la mitad.",
       gridSpanClass: "lg:col-span-4",
-      projectUrl: "https://simon-finanzas.com",
     },
     {
       id: 5,
@@ -215,7 +213,7 @@ export default function Portfolio() {
       challenge: "La agencia B Marketing necesitaba posicionarse como un socio tecnológico serio ante empresas corporativas y requerían transmitir profesionalidad y un diferencial disruptivo.",
       solution: "Se construyó una landing page corporativa con animaciones premium fluidas que explican el retorno de inversión de sus campaigns de marketing, integrando animéticas de conversión avanzadas y un captador de prospectos corporativo de alta retención.",
       gridSpanClass: "lg:col-span-4",
-      projectUrl: "https://bmarketing.agency",
+      projectUrl: "https://b-emarketing.vercel.app/",
     },
   ];
 
