@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
-import { Plus, LayoutTemplate, Laptop, Smartphone, Eye } from "lucide-react";
+import { Plus, Laptop, Smartphone } from "lucide-react";
 import ProjectModal from "@/components/ui/ProjectModal";
 import { useHoverSupport } from "@/hooks/useHoverSupport";
 
@@ -21,49 +21,62 @@ interface Project {
 interface ProjectCardProps {
   project: Project;
   onOpenDetail: (project: Project) => void;
+  activeVideoId: number | null;
+  onVisible: (id: number) => void;
+  onInvisible: (id: number) => void;
 }
 
-function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
+function ProjectCard({
+  project,
+  onOpenDetail,
+  activeVideoId,
+  onVisible,
+  onInvisible,
+}: ProjectCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const supportsHover = useHoverSupport();
   const isInView = useInView(cardRef, { once: false, amount: 0.5 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Notify parent component about visibility status
+  useEffect(() => {
+    if (isInView) {
+      onVisible(project.id);
+    } else {
+      onInvisible(project.id);
+    }
+  }, [isInView, project.id, onVisible, onInvisible]);
+
+  const isCardActive = !supportsHover
+    ? activeVideoId === project.id
+    : isHovered;
+
+  const isVideoPlaying = !supportsHover
+    ? activeVideoId === project.id
+    : isHovered && isInView;
 
   useEffect(() => {
     if (!videoRef.current) return;
 
-    if (!supportsHover) {
-      // Mobile Behavior: play automatically only when the card is in the viewport
-      if (isInView) {
-        videoRef.current.play().catch((err) => {
-          console.warn("Video play interrupted or failed:", err);
-        });
-      } else {
-        videoRef.current.pause();
-      }
+    if (isVideoPlaying) {
+      videoRef.current.play().catch((err) => {
+        // Safe catch for interrupted play requests
+        console.warn("Video play interrupted or failed:", err);
+      });
     } else {
-      // Desktop Behavior: play on hover, pause if out of viewport
-      if (!isInView) {
-        videoRef.current.pause();
-      }
+      videoRef.current.pause();
     }
-  }, [isInView, supportsHover]);
+  }, [isVideoPlaying]);
 
   const handleMouseEnter = () => {
     if (!supportsHover) return;
-    if (videoRef.current) {
-      videoRef.current.play().catch((err) => {
-        // Safe catch for interrupted play requests on fast hover
-        console.warn("Video play interrupted:", err);
-      });
-    }
+    setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
     if (!supportsHover) return;
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
+    setIsHovered(false);
   };
 
   return (
@@ -80,7 +93,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
       className={`${project.gridSpanClass} group rounded-3xl bg-brand-beige border p-8 flex flex-col justify-between transition-all duration-300 shadow-sm relative overflow-hidden ${
         project.id % 2 === 0 ? "lg:translate-y-12" : ""
       } ${
-        (!supportsHover && isInView)
+        isCardActive
           ? "border-brand-olive/25 shadow-md"
           : "border-brand-olive/10 shadow-sm hover-hover:border-brand-olive/25 hover-hover:shadow-md"
       }`}
@@ -115,7 +128,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
             transition: { duration: 0.4, ease: "easeOut" }
           }
         }}
-        animate={(!supportsHover && isInView) ? "hover" : "initial"}
+        animate={isCardActive ? "hover" : "initial"}
         className="flex-1 flex items-center justify-center min-h-[220px] mb-8 overflow-hidden relative"
       >
         {project.deviceType === "laptop" ? (
@@ -129,7 +142,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
                 playsInline
                 aria-hidden="true"
                 className={`w-full h-full object-cover transition-opacity duration-300 ${
-                  (!supportsHover && isInView)
+                  isCardActive
                     ? "opacity-100"
                     : "opacity-85 group-hover-hover:opacity-100"
                 }`}
@@ -157,7 +170,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
               playsInline
               aria-hidden="true"
               className={`w-full h-full object-cover transition-opacity duration-300 ${
-                (!supportsHover && isInView)
+                isCardActive
                   ? "opacity-100"
                   : "opacity-85 group-hover-hover:opacity-100"
               }`}
@@ -183,7 +196,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
               transition: { duration: 0.3 }
             }
           }}
-          animate={(!supportsHover && isInView) ? "hover" : "initial"}
+          animate={isCardActive ? "hover" : "initial"}
           whileTap={{ scale: 0.96 }}
           onClick={() => onOpenDetail(project)}
           className="flex items-center gap-1.5 px-4 py-2 rounded-full text-brand-beige text-xs font-bold shadow-sm transition-all duration-300"
@@ -193,7 +206,7 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
               initial: { rotate: 0 },
               hover: { rotate: 90, transition: { duration: 0.3 } }
             }}
-            animate={(!supportsHover && isInView) ? "hover" : "initial"}
+            animate={isCardActive ? "hover" : "initial"}
             className="inline-block"
           >
             <Plus className="w-3.5 h-3.5" />
@@ -208,6 +221,21 @@ function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
 export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [visibleCards, setVisibleCards] = useState<number[]>([]);
+
+  const handleCardVisible = useCallback((id: number) => {
+    setVisibleCards((prev) => {
+      if (prev.includes(id)) return prev;
+      return [...prev, id];
+    });
+  }, []);
+
+  const handleCardInvisible = useCallback((id: number) => {
+    setVisibleCards((prev) => prev.filter((item) => item !== id));
+  }, []);
+
+  // Determine active video ID: the most recently visible card (top/last in the queue)
+  const activeVideoId = visibleCards.length > 0 ? visibleCards[visibleCards.length - 1] : null;
 
   const projects: Project[] = [
     {
@@ -289,6 +317,9 @@ export default function Portfolio() {
               key={project.id}
               project={project}
               onOpenDetail={handleOpenDetail}
+              activeVideoId={activeVideoId}
+              onVisible={handleCardVisible}
+              onInvisible={handleCardInvisible}
             />
           ))}
         </div>
