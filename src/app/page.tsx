@@ -6,6 +6,7 @@ import Methodology from "@/components/sections/Methodology";
 import AboutMe from "@/components/sections/AboutMe";
 import CTA from "@/components/sections/CTA";
 import Footer from "@/components/sections/Footer";
+import { Analytics } from "@vercel/analytics/next"
 
 export default function Home() {
   return (
