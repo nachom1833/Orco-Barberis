@@ -104,6 +104,17 @@ export default function ValueProp() {
                 <div>
                   <motion.div
                     variants={{
+                      hidden: {
+                        scale: 1,
+                        rotate: 0,
+                        backgroundColor: "var(--color-brand-olive)",
+                      },
+                      visible: {
+                        scale: 1,
+                        rotate: 0,
+                        backgroundColor: "var(--color-brand-olive)",
+                        transition: { duration: 0.3, ease: "easeOut" }
+                      },
                       hover: {
                         scale: 1.12,
                         rotate: 8,
@@ -111,7 +122,7 @@ export default function ValueProp() {
                         transition: { duration: 0.3, ease: "easeOut" }
                       }
                     }}
-                    className="w-12 h-12 rounded-xl bg-brand-olive text-brand-beige flex items-center justify-center mb-6 transition-colors duration-300"
+                    className="w-12 h-12 rounded-xl bg-brand-olive text-brand-beige flex items-center justify-center mb-6"
                   >
                     <IconComponent className="w-6 h-6" />
                   </motion.div>
