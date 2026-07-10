@@ -73,7 +73,8 @@ export default function AboutMe() {
                 alt="Ignacio Orco Barberis - Desarrollador Frontend B2B"
                 width={600}
                 height={600}
-                priority
+                loading="lazy"
+                quality={80}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="w-full h-full object-cover grayscale-[20%] group-hover-hover:grayscale-0 transition-all duration-500"
               />
