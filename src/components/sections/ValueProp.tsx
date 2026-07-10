@@ -41,71 +41,72 @@ const ValueCard = memo(function ValueCard({
   pillar: Pillar;
   supportsHover: boolean;
 }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isCentered = useInView(cardRef, { once: false, margin: "-50% 0px -50% 0px" });
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const isCentered = useInView(wrapperRef, { once: false, margin: "-50% 0px -50% 0px" });
   const isCardActive = !supportsHover ? isCentered : false;
   const IconComponent = pillar.icon;
 
   return (
-    <motion.div
-      ref={cardRef}
-      variants={cardVariants}
-      animate={isCardActive ? "hover" : "visible"}
-      whileHover={supportsHover ? "hover" : undefined}
-      className="group p-8 rounded-2xl bg-brand-beige-dark/40 border border-brand-olive/5 flex flex-col justify-between"
-    >
-      <div>
+    <div ref={wrapperRef} className="h-full">
+      <motion.div
+        variants={cardVariants}
+        animate={isCardActive ? "hover" : "visible"}
+        whileHover={supportsHover ? "hover" : undefined}
+        className="group p-8 rounded-2xl bg-brand-beige-dark/40 border border-brand-olive/5 flex flex-col justify-between h-full"
+      >
+        <div>
+          <motion.div
+            variants={{
+              hidden: {
+                scale: 1,
+                rotate: 0,
+                backgroundColor: "var(--color-brand-olive)",
+              },
+              visible: {
+                scale: 1,
+                rotate: 0,
+                backgroundColor: "var(--color-brand-olive)",
+                transition: { duration: 0.3, ease: "easeOut" }
+              },
+              hover: {
+                scale: 1.12,
+                rotate: 8,
+                backgroundColor: "#5C4033",
+                transition: { duration: 0.3, ease: "easeOut" }
+              }
+            }}
+            className="w-12 h-12 rounded-xl bg-brand-olive text-brand-beige flex items-center justify-center mb-6"
+          >
+            <IconComponent className="w-6 h-6" />
+          </motion.div>
+          <h3 className="text-xl font-bold text-brand-olive mb-3">
+            {pillar.title}
+          </h3>
+          <p className="text-sm text-brand-olive/90 font-medium leading-relaxed">
+            {pillar.description}
+          </p>
+        </div>
         <motion.div
           variants={{
             hidden: {
-              scale: 1,
-              rotate: 0,
-              backgroundColor: "var(--color-brand-olive)",
+              width: "3rem",
+              backgroundColor: "rgba(59, 67, 49, 0.2)",
             },
             visible: {
-              scale: 1,
-              rotate: 0,
-              backgroundColor: "var(--color-brand-olive)",
-              transition: { duration: 0.3, ease: "easeOut" }
+              width: "3rem",
+              backgroundColor: "rgba(59, 67, 49, 0.2)",
+              transition: { duration: 0.3 }
             },
             hover: {
-              scale: 1.12,
-              rotate: 8,
-              backgroundColor: "#5C4033",
-              transition: { duration: 0.3, ease: "easeOut" }
+              width: "100%",
+              backgroundColor: "var(--color-brand-oak)",
+              transition: { duration: 0.3 }
             }
           }}
-          className="w-12 h-12 rounded-xl bg-brand-olive text-brand-beige flex items-center justify-center mb-6"
-        >
-          <IconComponent className="w-6 h-6" />
-        </motion.div>
-        <h3 className="text-xl font-bold text-brand-olive mb-3">
-          {pillar.title}
-        </h3>
-        <p className="text-sm text-brand-olive/90 font-medium leading-relaxed">
-          {pillar.description}
-        </p>
-      </div>
-      <motion.div
-        variants={{
-          hidden: {
-            width: "3rem",
-            backgroundColor: "rgba(59, 67, 49, 0.2)",
-          },
-          visible: {
-            width: "3rem",
-            backgroundColor: "rgba(59, 67, 49, 0.2)",
-            transition: { duration: 0.3 }
-          },
-          hover: {
-            width: "100%",
-            backgroundColor: "var(--color-brand-oak)",
-            transition: { duration: 0.3 }
-          }
-        }}
-        className="h-1 rounded-full mt-8"
-      />
-    </motion.div>
+          className="h-1 rounded-full mt-8"
+        />
+      </motion.div>
+    </div>
   );
 });
 

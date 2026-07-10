@@ -49,7 +49,7 @@ export default function CTA() {
           </motion.a>
 
           <p className="text-xs text-brand-beige/60 font-medium italic mt-4 text-center">
-            Es un chat directo conmigo. Respondo rápido.
+            Es un chat directo conmigo. Rapido y eficiente.
           </p>
         </motion.div>
       </div>
