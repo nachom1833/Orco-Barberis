@@ -24,7 +24,6 @@ const cardVariants = {
   hover: {
     opacity: 1,
     y: -8,
-    boxShadow: "0 12px 30px -5px rgba(59, 67, 49, 0.12)",
     borderColor: "rgba(59, 67, 49, 0.25)",
     backgroundColor: "#F5F2EB",
     transition: {
@@ -52,9 +51,19 @@ const ValueCard = memo(function ValueCard({
         variants={cardVariants}
         animate={isCardActive ? "hover" : "visible"}
         whileHover={supportsHover ? "hover" : undefined}
-        className="group p-8 rounded-2xl bg-brand-beige-dark/40 border border-brand-olive/5 flex flex-col justify-between h-full"
+        className="group p-8 rounded-2xl bg-brand-beige-dark/40 border border-brand-olive/5 flex flex-col justify-between h-full shadow-sm relative transform-gpu backface-hidden will-change-transform"
       >
-        <div>
+        {/* Background shadow layer to optimize GPU rendering of shadows */}
+        <motion.div
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 0 },
+            hover: { opacity: 1, transition: { duration: 0.35, ease: "easeOut" } }
+          }}
+          className="absolute inset-0 rounded-2xl shadow-[0_12px_30px_-5px_rgba(59,67,49,0.12)] pointer-events-none"
+        />
+
+        <div className="relative z-10">
           <motion.div
             variants={{
               hidden: {
@@ -103,7 +112,7 @@ const ValueCard = memo(function ValueCard({
               transition: { duration: 0.3 }
             }
           }}
-          className="h-1 rounded-full mt-8"
+          className="h-1 rounded-full mt-8 relative z-10"
         />
       </motion.div>
     </div>
