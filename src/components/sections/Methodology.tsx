@@ -40,6 +40,7 @@ const StepItem = memo(function StepItem({ step, index }: StepItemProps) {
       transition: { duration: 0.8, delay: 0.1, ease: "easeOut" as const }
     },
     hover: {
+      opacity: 1,
       y: -5,
       borderColor: "rgba(92, 64, 51, 0.25)",
       boxShadow: "0 10px 25px -5px rgba(59, 67, 49, 0.08)",
@@ -94,7 +95,7 @@ const StepItem = memo(function StepItem({ step, index }: StepItemProps) {
           variants={cardVariants}
           initial="hidden"
           animate={hasEntered ? (isCardActive ? "hover" : "visible") : "hidden"}
-          className="p-8 rounded-3xl bg-brand-beige-dark/30 border border-brand-olive/5 shadow-sm transition-all duration-300"
+          className="p-8 rounded-3xl bg-brand-beige-dark/30 border border-brand-olive/5 shadow-sm"
         >
           <span className="text-[10px] font-black text-brand-oak uppercase tracking-widest block mb-1">
             Paso {step.id}
