@@ -25,13 +25,13 @@ export default function CTA() {
           className="max-w-2xl flex flex-col items-center"
         >
           <span className="text-[10px] font-black text-brand-beige/60 uppercase tracking-widest block mb-4">
-            ¿Trabajamos juntos?
+            PRÓXIMOS PASOS
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.1] mb-6">
-            ¿Listo para mostrar el verdadero potencial de tu negocio?
+            Escalemos tu negocio con una web que realmente convierta.
           </h2>
           <p className="text-sm sm:text-base text-brand-beige/80 font-medium max-w-lg mb-10 leading-relaxed">
-            Hablemos hoy sobre tus metas comerciales y cómo una plataforma web optimizada a medida puede ayudarte a conseguirlas con rapidez y efectividad.
+            Escribime por WhatsApp y analizamos en 15 minutos qué está frenando tus ventas actuales y cómo podemos optimizarlo. Sin compromisos ni presiones.
           </p>
 
           <motion.a
@@ -47,6 +47,10 @@ export default function CTA() {
             Contactar por WhatsApp
             <ArrowRight className="w-4 h-4 text-brand-olive transition-transform duration-300 group-hover-hover:translate-x-1" />
           </motion.a>
+
+          <p className="text-xs text-brand-beige/60 font-medium italic mt-4 text-center">
+            Es un chat directo conmigo. Respondo rápido.
+          </p>
         </motion.div>
       </div>
     </section>
