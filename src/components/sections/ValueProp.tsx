@@ -1,12 +1,117 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef, memo } from "react";
+import { motion, useInView } from "framer-motion";
 import { Eye, TrendingUp, Zap, HeartHandshake } from "lucide-react";
 import { useHoverSupport } from "@/hooks/useHoverSupport";
 
+interface Pillar {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut" as const,
+    },
+  },
+  hover: {
+    opacity: 1,
+    y: -8,
+    boxShadow: "0 12px 30px -5px rgba(59, 67, 49, 0.12)",
+    borderColor: "rgba(59, 67, 49, 0.25)",
+    backgroundColor: "#F5F2EB",
+    transition: {
+      duration: 0.35,
+      ease: "easeOut" as const,
+    },
+  },
+};
+
+const ValueCard = memo(function ValueCard({
+  pillar,
+  supportsHover,
+}: {
+  pillar: Pillar;
+  supportsHover: boolean;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isCentered = useInView(cardRef, { once: false, margin: "-50% 0px -50% 0px" });
+  const isCardActive = !supportsHover ? isCentered : false;
+  const IconComponent = pillar.icon;
+
+  return (
+    <motion.div
+      ref={cardRef}
+      variants={cardVariants}
+      animate={isCardActive ? "hover" : "visible"}
+      whileHover={supportsHover ? "hover" : undefined}
+      className="group p-8 rounded-2xl bg-brand-beige-dark/40 border border-brand-olive/5 flex flex-col justify-between"
+    >
+      <div>
+        <motion.div
+          variants={{
+            hidden: {
+              scale: 1,
+              rotate: 0,
+              backgroundColor: "var(--color-brand-olive)",
+            },
+            visible: {
+              scale: 1,
+              rotate: 0,
+              backgroundColor: "var(--color-brand-olive)",
+              transition: { duration: 0.3, ease: "easeOut" }
+            },
+            hover: {
+              scale: 1.12,
+              rotate: 8,
+              backgroundColor: "#5C4033",
+              transition: { duration: 0.3, ease: "easeOut" }
+            }
+          }}
+          className="w-12 h-12 rounded-xl bg-brand-olive text-brand-beige flex items-center justify-center mb-6"
+        >
+          <IconComponent className="w-6 h-6" />
+        </motion.div>
+        <h3 className="text-xl font-bold text-brand-olive mb-3">
+          {pillar.title}
+        </h3>
+        <p className="text-sm text-brand-olive/90 font-medium leading-relaxed">
+          {pillar.description}
+        </p>
+      </div>
+      <motion.div
+        variants={{
+          hidden: {
+            width: "3rem",
+            backgroundColor: "rgba(59, 67, 49, 0.2)",
+          },
+          visible: {
+            width: "3rem",
+            backgroundColor: "rgba(59, 67, 49, 0.2)",
+            transition: { duration: 0.3 }
+          },
+          hover: {
+            width: "100%",
+            backgroundColor: "var(--color-brand-oak)",
+            transition: { duration: 0.3 }
+          }
+        }}
+        className="h-1 rounded-full mt-8"
+      />
+    </motion.div>
+  );
+});
+
 export default function ValueProp() {
   const supportsHover = useHoverSupport();
-  const pillars = [
+  const pillars: Pillar[] = [
     {
       icon: Eye,
       title: "Atención al detalle",
@@ -34,28 +139,6 @@ export default function ValueProp() {
     visible: {
       transition: {
         staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut" as const,
-      },
-    },
-    hover: {
-      y: -8,
-      boxShadow: "0 12px 30px -5px rgba(59, 67, 49, 0.12)",
-      borderColor: "rgba(59, 67, 49, 0.25)",
-      backgroundColor: "#F5F2EB",
-      transition: {
-        duration: 0.35,
-        ease: "easeOut" as const,
       },
     },
   };
@@ -92,51 +175,13 @@ export default function ValueProp() {
           viewport={{ once: true, margin: "-30px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
-          {pillars.map((pillar) => {
-            const IconComponent = pillar.icon;
-            return (
-              <motion.div
-                key={pillar.title}
-                variants={cardVariants}
-                whileHover={supportsHover ? "hover" : undefined}
-                className="group p-8 rounded-2xl bg-brand-beige-dark/40 border border-brand-olive/5 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <motion.div
-                    variants={{
-                      hidden: {
-                        scale: 1,
-                        rotate: 0,
-                        backgroundColor: "var(--color-brand-olive)",
-                      },
-                      visible: {
-                        scale: 1,
-                        rotate: 0,
-                        backgroundColor: "var(--color-brand-olive)",
-                        transition: { duration: 0.3, ease: "easeOut" }
-                      },
-                      hover: {
-                        scale: 1.12,
-                        rotate: 8,
-                        backgroundColor: "#5C4033",
-                        transition: { duration: 0.3, ease: "easeOut" }
-                      }
-                    }}
-                    className="w-12 h-12 rounded-xl bg-brand-olive text-brand-beige flex items-center justify-center mb-6"
-                  >
-                    <IconComponent className="w-6 h-6" />
-                  </motion.div>
-                  <h3 className="text-xl font-bold text-brand-olive mb-3">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-sm text-brand-olive/90 font-medium leading-relaxed">
-                    {pillar.description}
-                  </p>
-                </div>
-                <div className="h-1 w-12 bg-brand-olive/20 rounded-full mt-8 group-hover-hover:w-full group-hover-hover:bg-brand-oak transition-all duration-300" />
-              </motion.div>
-            );
-          })}
+          {pillars.map((pillar) => (
+            <ValueCard
+              key={pillar.title}
+              pillar={pillar}
+              supportsHover={supportsHover}
+            />
+          ))}
         </motion.div>
       </div>
     </section>
