@@ -70,7 +70,8 @@ export default function Header() {
   };
 
   return (
-    <motion.header
+    <>
+      <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -115,7 +116,7 @@ export default function Header() {
         </div>
 
         {/* CTA Button (Right) */}
-        <div className="flex items-center justify-end">
+        <div className="hidden md:flex items-center justify-end">
           <motion.a
             whileHover={supportsHover ? { scale: 1.03, boxShadow: "0 4px 15px rgba(59, 67, 49, 0.15)" } : undefined}
             whileTap={{ scale: 0.98 }}
@@ -131,5 +132,23 @@ export default function Header() {
         </div>
       </div>
     </motion.header>
+
+    {/* Floating Mobile WhatsApp Button */}
+    <div className="fixed bottom-6 right-6 z-50 md:hidden">
+      <motion.a
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 1, type: "spring", stiffness: 260, damping: 20 }}
+        whileTap={{ scale: 0.95 }}
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contactar por WhatsApp"
+        className="flex items-center justify-center w-14 h-14 rounded-full bg-brand-olive text-brand-beige shadow-lg border border-brand-beige/10 active:bg-brand-olive-light transition-colors duration-300"
+      >
+        <MessageSquare className="w-6 h-6" />
+      </motion.a>
+    </div>
+    </>
   );
 }
