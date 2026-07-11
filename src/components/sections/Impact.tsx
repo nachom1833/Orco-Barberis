@@ -200,19 +200,19 @@ const RoiCard = memo(function RoiCard({
   const triggerCounter = !supportsHover ? isCentered : (isCentered || isHovered);
 
   const [count, setCount] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
-    if (triggerCounter) {
+    if (triggerCounter && !hasAnimated) {
+      setHasAnimated(true);
       const controls = animate(0, 500, {
         duration: 1.8,
         ease: "easeOut",
         onUpdate: (value) => setCount(Math.round(value)),
       });
       return () => controls.stop();
-    } else {
-      setCount(0);
     }
-  }, [triggerCounter]);
+  }, [triggerCounter, hasAnimated]);
 
   return (
     <div 
