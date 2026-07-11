@@ -16,9 +16,9 @@ export default function Home() {
         {/* Background guiding thread vertical line */}
         <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-brand-olive/[0.06] -translate-x-1/2 pointer-events-none -z-10" />
         <Hero />
-        <ValueProp />
         <Impact />
         <Portfolio />
+        <ValueProp />
         <Methodology />
         <AboutMe />
         <CTA />
