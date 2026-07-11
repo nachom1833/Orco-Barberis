@@ -200,11 +200,11 @@ const RoiCard = memo(function RoiCard({
   const triggerCounter = !supportsHover ? isCentered : (isCentered || isHovered);
 
   const [count, setCount] = useState(0);
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
-    if (triggerCounter && !hasAnimated) {
-      setHasAnimated(true);
+    if (triggerCounter && !hasAnimatedRef.current) {
+      hasAnimatedRef.current = true;
       const controls = animate(0, 500, {
         duration: 1.8,
         ease: "easeOut",
@@ -212,7 +212,7 @@ const RoiCard = memo(function RoiCard({
       });
       return () => controls.stop();
     }
-  }, [triggerCounter, hasAnimated]);
+  }, [triggerCounter]);
 
   return (
     <div 

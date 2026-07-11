@@ -13,8 +13,9 @@ export default function Header() {
 
   const navItems = [
     { name: "Inicio", href: "#inicio" },
-    { name: "Valor", href: "#valor" },
+    { name: "Impacto", href: "#impacto" },
     { name: "Proyectos", href: "#proyectos" },
+    { name: "Valor", href: "#valor" },
     { name: "Metodología", href: "#metodologia" },
     { name: "Sobre Mí", href: "#sobre-mi" },
   ];
@@ -36,7 +37,7 @@ export default function Header() {
 
     const observer = new IntersectionObserver(handleIntersection, observerOptions);
 
-    const sections = ["inicio", "valor", "proyectos", "metodologia", "sobre-mi"];
+    const sections = ["inicio", "impacto", "proyectos", "valor", "metodologia", "sobre-mi"];
     sections.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
