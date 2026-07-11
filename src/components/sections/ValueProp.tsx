@@ -2,7 +2,7 @@
 
 import { useRef, memo } from "react";
 import { motion, useInView } from "framer-motion";
-import { Eye, TrendingUp, Zap, HeartHandshake } from "lucide-react";
+import { Layers, TrendingUp, Zap, HeartHandshake } from "lucide-react";
 import { useHoverSupport } from "@/hooks/useHoverSupport";
 
 interface Pillar {
@@ -123,9 +123,9 @@ export default function ValueProp() {
   const supportsHover = useHoverSupport();
   const pillars: Pillar[] = [
     {
-      icon: Eye,
-      title: "Atención al detalle",
-      description: "Interfaces limpias, código impecable y una experiencia de usuario (UX) pulida que marca la diferencia en cada pantalla.",
+      icon: Layers,
+      title: "Arquitectura escalable",
+      description: "Construyo plataformas preparadas a nivel estructural para crecer con tu empresa de forma sólida, sin generar dolores de cabeza técnicos ni refactorizaciones costosas a futuro.",
     },
     {
       icon: TrendingUp,
@@ -134,8 +134,8 @@ export default function ValueProp() {
     },
     {
       icon: Zap,
-      title: "Ejecución ágil",
-      description: "Rapidez y entregas precisas. Optimización continua para lograr tiempos de carga excepcionales y un despliegue sin fricciones.",
+      title: "Rendimiento y retención",
+      description: "La lentitud digital hace perder clientes corporativos. Desarrollo sistemas milimétricamente optimizados para garantizar una navegación fluida que retenga la atención y mejore tu posicionamiento.",
     },
     {
       icon: HeartHandshake,
