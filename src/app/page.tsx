@@ -1,6 +1,7 @@
 import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
 import ValueProp from "@/components/sections/ValueProp";
+import Impact from "@/components/sections/Impact";
 import Portfolio from "@/components/sections/Portfolio";
 import Methodology from "@/components/sections/Methodology";
 import AboutMe from "@/components/sections/AboutMe";
@@ -17,6 +18,7 @@ export default function Home() {
         <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-brand-olive/[0.06] -translate-x-1/2 pointer-events-none -z-10" />
         <Hero />
         <ValueProp />
+        <Impact />
         <Portfolio />
         <Methodology />
         <AboutMe />
